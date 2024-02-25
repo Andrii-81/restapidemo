@@ -89,7 +89,7 @@ public class FileServiceImpl implements FileService {
             customer.setId(Integer.parseInt(id));
             customer.setName(name);
             customer.setAge(Integer.parseInt(age));
-            customer.setMobile_no(Integer.parseInt(mobile_no));
+            customer.setMobile_no(mobile_no);
 
         } catch (Exception e) {
 

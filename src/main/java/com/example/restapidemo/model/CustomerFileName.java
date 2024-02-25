@@ -9,12 +9,12 @@ public class CustomerFileName {
     private int id;
     private String name;
     private int age;
-    private int mobile_no;
+    private String mobile_no;
     private String fileName;
 
     public CustomerFileName() {
     }
-    public CustomerFileName(int id, String name, int age, int mobile_no, String fileName) {
+    public CustomerFileName(int id, String name, int age, String mobile_no, String fileName) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -34,7 +34,7 @@ public class CustomerFileName {
         return age;
     }
 
-    public int getMobile_no() {
+    public String getMobile_no() {
         return mobile_no;
     }
 
@@ -54,7 +54,7 @@ public class CustomerFileName {
         this.age = age;
     }
 
-    public void setMobile_no(int mobile_no) {
+    public void setMobile_no(String mobile_no) {
         this.mobile_no = mobile_no;
     }
 
