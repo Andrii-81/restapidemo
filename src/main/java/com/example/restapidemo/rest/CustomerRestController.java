@@ -40,12 +40,14 @@ public class CustomerRestController {
 
 
 
-    @RequestMapping(value = "{uniqueFileName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Customer> getCustomer(@PathVariable("uniqueFileName") String uniqueName) {
-        if(uniqueName == null) {
+    //@RequestMapping(value = "{uniqueFileName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping("/{uniqueFileName}")
+    //@GetMapping()
+    public ResponseEntity<Customer> getCustomer(@PathVariable("uniqueFileName") int uniqueFileName) {
+        if(uniqueFileName == 0) {
             return new ResponseEntity<Customer>(HttpStatus.BAD_REQUEST);
         }
-        Customer customer = this.customerService.findCustomerByFileName(uniqueName);
+        Customer customer = this.customerService.findCustomerByFileName(Integer.toString(uniqueFileName));
         if(customer == null) {
             return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
         }

@@ -7,18 +7,9 @@ import java.util.List;
 
 public interface CustomerService {
 
-
     String create(Customer customer);
 
-
     Customer findCustomerByFileName(String fileName);
-
-
-
-
-
-
-
 
 //    List<CustomerFileName> findAll();
 //
@@ -27,6 +18,5 @@ public interface CustomerService {
 //    CustomerFileName createCFN(CustomerFileName customer);
 //
 //    Customer getByFileName(String fileName);
-
 
 }

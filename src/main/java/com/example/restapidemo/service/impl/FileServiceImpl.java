@@ -22,9 +22,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String createCSV (Customer customer) {
-        String uniqueFileName = null;
+        String uniqueFileName = createUniqueFileName();//null;
         try {
-            uniqueFileName = createUniqueFileName();
+            //uniqueFileName = createUniqueFileName();
             String pathOfFile = "C:\\My_Java_projects_itvdn\\___Spring_with_Victor___\\RestApiClientJson_2024_02_24\\restapidemo\\src\\main\\java\\csvFiles\\"
                     + uniqueFileName;
 
@@ -50,25 +50,26 @@ public class FileServiceImpl implements FileService {
     @Override
     public String createUniqueFileName() {
         String uniqueFileName = null;
-        Set<String> setOfNames = getAllFileNames();
+        List<String> setOfNames = getAllFileNames();
         // КОД ПО ПОЛУЧЕНИЮ УНИКАЛЬНОСТИ ИМЕНИ   =========== ЧЕРЕЗ РЕКУРСИЮ
 
         uniqueFileName = Integer.toString((int) (Math.random() * 1000));
 
+        ////////////////////////////////////// ДОРАБОТАТЬ ПРОВЕРКУ НА УНИКАЛЬНОСТЬ
         for (String name : setOfNames) {
-            if (uniqueFileName != name) {
+            if (uniqueFileName != (name).toString()) {
                 return uniqueFileName;
             }
             else {
                 createUniqueFileName();
             }
         }
-
         return uniqueFileName;
     }
+
     @Override
     public Customer readFile(String fileName) {
-        Customer customer = null;
+        Customer customer = new Customer();
         ArrayList<Object> tmp_list = new ArrayList<>();
 
         try (BufferedReader br = Files.newBufferedReader(Paths.get("C:\\My_Java_projects_itvdn\\___Spring_with_Victor___\\RestApiClientJson_2024_02_24\\restapidemo\\src\\main\\java\\csvFiles\\"
@@ -81,27 +82,37 @@ public class FileServiceImpl implements FileService {
                     tmp_list.add(tokenizer.nextElement());
                 }
             }
-            String id = tmp_list.get(1).toString();
-            String name = tmp_list.get(2).toString();
-            String age = tmp_list.get(3).toString();
-            String mobile_no = tmp_list.get(4).toString();
-
-            customer.setId(Integer.parseInt(id));
-            customer.setName(name);
-            customer.setAge(Integer.parseInt(age));
-            customer.setMobile_no(mobile_no);
+//            String id = tmp_list.get(0).toString();
+//            String name = tmp_list.get(1).toString();
+//            String age = tmp_list.get(2).toString();
+//            String mobile_no = tmp_list.get(3).toString();
+//
+//            customer.setId(Integer.parseInt(id));
+//            customer.setName((name).toString());
+//            customer.setAge(Integer.parseInt(age));
+//            customer.setMobile_no((mobile_no).toString());
+            customer = convertListToCustomer(tmp_list);
 
         } catch (Exception e) {
 
         }
-        //
+        return customer;
+    }
+
+    public Customer convertListToCustomer(ArrayList<Object> tmp_list) {
+        String id = tmp_list.get(0).toString();
+        String name = tmp_list.get(1).toString();
+        String age = tmp_list.get(2).toString();
+        String mobile_no = tmp_list.get(3).toString();
+
+        Customer customer = new Customer(Integer.parseInt(id), (name).toString(), Integer.parseInt(age), (mobile_no).toString());
         return customer;
     }
 
     @Override
-    public Set<String> getAllFileNames() {
+    public List<String> getAllFileNames() {
         String[] stringOfNames = null;
-        Set<String> setOfNames = null;
+        List<String> setOfNames = new ArrayList<>(); //Set<String> setOfNames = null;
         // System.out -указываем что будем-поток вывода(а не поток ввода)  // кодировка    // флажок автоочистки будера=ТРУ
         try (PrintWriter pw = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"), true)){
 

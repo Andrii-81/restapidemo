@@ -14,7 +14,7 @@ public interface FileService {
 
     Customer readFile(String fileName);
 
-     Set<String> getAllFileNames();
+     List<String> getAllFileNames();
 
 
 }
